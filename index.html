@@ -63,6 +63,42 @@
     <p><strong>You are my today, my tomorrow, and my always.</strong></p>
     <div class="footer">❤️ Yours forever — Kabir</div>
   </div>
+  <script>
+  // Set the special date you want to show the card for (tomorrow's date)
+  const specialDate = new Date();
+  specialDate.setDate(specialDate.getDate() + 1); // tomorrow
+
+  // Get today's date (year, month, day)
+  const today = new Date();
+
+  // Normalize dates by zeroing time for accurate comparison
+  function normalizeDate(d) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  }
+
+  const normalizedToday = normalizeDate(today);
+  const normalizedSpecial = normalizeDate(specialDate);
+
+  const card = document.querySelector('.card');
+
+  if (normalizedToday.getTime() === normalizedSpecial.getTime() - 86400000) {
+    // Today is the day before specialDate (tomorrow)
+    // Show card (do nothing, it's visible by default)
+  } else if (normalizedToday.getTime() === normalizedSpecial.getTime()) {
+    // It's the special date (tomorrow) - show card
+  } else {
+    // Hide the card if it's not the special date or day before
+    card.style.display = 'none';
+
+    // Optionally show a message
+    const message = document.createElement('div');
+    message.style.textAlign = 'center';
+    message.style.marginTop = '20px';
+    message.style.color = '#666';
+    message.textContent = 'This special greeting will be shown tomorrow. Please check back then!';
+    document.body.appendChild(message);
+  }
+</script>
 </body>
 </html>
 
