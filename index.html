@@ -28,6 +28,10 @@
       animation: fadeIn 2s ease;
     }
 
+    .hidden {
+      display: none;
+    }
+
     h1 {
       color: #ff4081;
       font-size: 2rem;
@@ -47,10 +51,6 @@
       color: #e91e63;
     }
 
-    .hidden {
-      display: none;
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -58,7 +58,8 @@
   </style>
 </head>
 <body>
-  <div class="card">
+  <!-- Start hidden -->
+  <div class="card hidden">
     <h1>💖 Happy Girlfriend Day 💖</h1>
     <p>On this special day, I just want to say how lucky I am to have you in my life.</p>
     <p>Your smile lights up my world, your voice calms my soul, and your love makes every moment magical.</p>
@@ -70,32 +71,36 @@
   </div>
 
   <script>
-    function normalizeDate(d) {
-      return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+      function normalizeDate(d) {
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      }
 
-    const today = normalizeDate(new Date());
+      const today = normalizeDate(new Date());
 
-    // Special date: tomorrow
-    const specialDate = new Date(today);
-    specialDate.setDate(specialDate.getDate() + 1);
+      // Special date: tomorrow
+      const specialDate = new Date(today);
+      specialDate.setDate(specialDate.getDate() + 1);
 
-    const card = document.querySelector('.card');
+      const card = document.querySelector('.card');
 
-    if (today.getTime() === specialDate.getTime()) {
-      card.classList.remove('hidden');
-    } else {
-      card.classList.add('hidden');
-      const message = document.createElement('div');
-      message.style.textAlign = 'center';
-      message.style.marginTop = '20px';
-      message.style.color = '#666';
-      message.style.fontFamily = "'Segoe UI', sans-serif";
-      message.style.fontSize = '1.2rem';
-      message.textContent = 'This special greeting will be shown tomorrow. Please check back then!';
-      document.body.appendChild(message);
-    }
+      if (today.getTime() === specialDate.getTime()) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+
+        const message = document.createElement('div');
+        message.style.textAlign = 'center';
+        message.style.marginTop = '20px';
+        message.style.color = '#666';
+        message.style.fontFamily = "'Segoe UI', sans-serif";
+        message.style.fontSize = '1.2rem';
+        message.textContent = 'This special greeting will be shown tomorrow. Please check back then!';
+        document.body.appendChild(message);
+      }
+    });
   </script>
 </body>
 </html>
+
 
