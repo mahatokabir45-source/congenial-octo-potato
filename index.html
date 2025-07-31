@@ -14,6 +14,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
     }
 
     .card {
@@ -46,6 +47,10 @@
       color: #e91e63;
     }
 
+    .hidden {
+      display: none;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -63,42 +68,34 @@
     <p><strong>You are my today, my tomorrow, and my always.</strong></p>
     <div class="footer">❤️ Yours forever — Kabir</div>
   </div>
+
   <script>
-  // Set the special date you want to show the card for (tomorrow's date)
-  const specialDate = new Date();
-  specialDate.setDate(specialDate.getDate() + 1); // tomorrow
+    function normalizeDate(d) {
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    }
 
-  // Get today's date (year, month, day)
-  const today = new Date();
+    const today = normalizeDate(new Date());
 
-  // Normalize dates by zeroing time for accurate comparison
-  function normalizeDate(d) {
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  }
+    // Special date: tomorrow
+    const specialDate = new Date(today);
+    specialDate.setDate(specialDate.getDate() + 1);
 
-  const normalizedToday = normalizeDate(today);
-  const normalizedSpecial = normalizeDate(specialDate);
+    const card = document.querySelector('.card');
 
-  const card = document.querySelector('.card');
-
-  if (normalizedToday.getTime() === normalizedSpecial.getTime() - 86400000) {
-    // Today is the day before specialDate (tomorrow)
-    // Show card (do nothing, it's visible by default)
-  } else if (normalizedToday.getTime() === normalizedSpecial.getTime()) {
-    // It's the special date (tomorrow) - show card
-  } else {
-    // Hide the card if it's not the special date or day before
-    card.style.display = 'none';
-
-    // Optionally show a message
-    const message = document.createElement('div');
-    message.style.textAlign = 'center';
-    message.style.marginTop = '20px';
-    message.style.color = '#666';
-    message.textContent = 'This special greeting will be shown tomorrow. Please check back then!';
-    document.body.appendChild(message);
-  }
-</script>
+    if (today.getTime() === specialDate.getTime()) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+      const message = document.createElement('div');
+      message.style.textAlign = 'center';
+      message.style.marginTop = '20px';
+      message.style.color = '#666';
+      message.style.fontFamily = "'Segoe UI', sans-serif";
+      message.style.fontSize = '1.2rem';
+      message.textContent = 'This special greeting will be shown tomorrow. Please check back then!';
+      document.body.appendChild(message);
+    }
+  </script>
 </body>
 </html>
 
